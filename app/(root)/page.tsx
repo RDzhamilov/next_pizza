@@ -19,11 +19,7 @@ export default async function Home() {
       <Container className="mt-10">
         <Title className="font-extrabold" text="Все пиццы" size="lg" />
       </Container>
-      <TopBar
-        categories={categories.filter(
-          (category) => category.products.length > 0
-        )}
-      />
+      <TopBar categories={categories.filter((category) => category.products.length > 0)} />
 
       <Container className="mt-10 pb-14">
         <div className="flex gap-[80px]">
