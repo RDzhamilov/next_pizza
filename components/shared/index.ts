@@ -8,4 +8,5 @@ export { FilterCheckbox } from "./filter-checkbox";
 export { SortPopup } from "./sort-popup";
 export { SearchInput } from "./search-input";
 export { ProductImage } from "./product-image";
+export { ChooseProductForm } from "./choose-product-form";
 export * from "./modals";
