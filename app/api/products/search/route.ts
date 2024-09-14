@@ -22,9 +22,9 @@ export async function GET(req: NextRequest) {
 
   const products = await prisma.product.findMany();
 
-  const filteredPoducts = query
+  const filteredProducts = query
     ? products.filter((product) => product.name.toLocaleLowerCase().includes(query)).slice(0, 5)
     : products.slice(0, 5);
 
-  return NextResponse.json(filteredPoducts);
+  return NextResponse.json(filteredProducts);
 }
