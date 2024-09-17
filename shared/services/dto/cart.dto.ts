@@ -15,3 +15,8 @@ export interface CreateCartItemValues {
   productItemId: number;
   ingredients?: number[];
 }
+
+export interface CreateCartItemValues {
+  productItemId: number;
+  ingredients?: number[];
+}
