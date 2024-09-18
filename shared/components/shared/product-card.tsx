@@ -3,12 +3,14 @@ import React from "react";
 import { Title } from "./title";
 import { Button } from "../ui";
 import Link from "next/link";
+import { Ingredient } from "@prisma/client";
 
 interface Props {
   id: number;
   name: string;
   price: number;
   imageUrl: string;
+  ingredients: Ingredient[];
   className?: string;
 }
 
@@ -17,6 +19,7 @@ export const ProductCard: React.FC<Props> = ({
   name,
   price,
   imageUrl,
+  ingredients,
   className,
 }) => {
   return (
@@ -29,8 +32,7 @@ export const ProductCard: React.FC<Props> = ({
         <Title text={name} size="sm" className="mb-1 mt-3 font-bold" />
 
         <p className="text-sm text-gray-400">
-          Цыпленок, моцарелла, сыр чеддер и пармезан, сырный соус, томаты, соус
-          альфредо, чеснок
+          {ingredients.map((ingredient) => ingredient.name).join(", ")}
         </p>
         <div className="flex justify-between items-center mt-4">
           <span className="text-[20px]">
