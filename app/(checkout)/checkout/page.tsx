@@ -1,19 +1,58 @@
 "use client";
 
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCart } from "@/shared/hooks";
 import {
-  CheckoutItem,
   CheckoutSidebar,
   Container,
   Title,
-  WhiteBlock,
-} from "@/shared/components/shared";
-import { Input, Textarea } from "@/shared/components/ui";
-import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
-import { useCart } from "@/shared/hooks";
-import { getCartItemDetails } from "@/shared/lib";
+  CheckoutAddressForm,
+  CheckoutCart,
+  CheckoutPersonalForm,
+} from "@/shared/components";
+import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
+import { createOrder } from "@/app/actions";
+import toast from "react-hot-toast";
+import React from "react";
 
 export default function CheckoutPage() {
-  const { totalAmount, updateItemQuantity, items, removeCartItem } = useCart();
+  const [submitting, setSubmitting] = React.useState(false);
+  const { totalAmount, updateItemQuantity, items, removeCartItem, loading } = useCart();
+
+  const form = useForm<CheckoutFormValues>({
+    resolver: zodResolver(checkoutFormSchema),
+    defaultValues: {
+      email: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      address: "",
+      comment: "",
+    },
+  });
+
+  const onSubmit = async (data: CheckoutFormValues) => {
+    try {
+      setSubmitting(true);
+
+      const url = await createOrder(data);
+
+      toast.error("Заказ успешно оформлен! 📝 Переход на оплату...", {
+        icon: "✅",
+      });
+
+      if (url) {
+        location.href = url;
+      }
+    } catch (err) {
+      console.log(err);
+      setSubmitting(false);
+      toast.error("Не удалось создать заказ", {
+        icon: "❌",
+      });
+    }
+  };
 
   const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
     const newQuantity = type === "plus" ? quantity + 1 : quantity - 1;
@@ -24,52 +63,30 @@ export default function CheckoutPage() {
     <Container className="mt-10">
       <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
 
-      <div className="flex gap-10">
-        {/* Левая часть */}
-        <div className="flex flex-col gap-10 flex-1 mb-20">
-          <WhiteBlock title="1. Корзина">
-            {items.map((item) => (
-              <CheckoutItem
-                key={item.id}
-                id={item.id}
-                imageUrl={item.imageUrl}
-                details={getCartItemDetails(
-                  item.ingredients,
-                  item.pizzaType as PizzaType,
-                  item.pizzaSize as PizzaSize
-                )}
-                name={item.name}
-                price={item.price}
-                quantity={item.quantity}
-                disabled={item.disabled}
-                onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
-                onClickRemove={() => removeCartItem(item.id)}
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex gap-10">
+            {/* Левая часть */}
+            <div className="flex flex-col gap-10 flex-1 mb-20">
+              <CheckoutCart
+                onClickCountButton={onClickCountButton}
+                removeCartItem={removeCartItem}
+                items={items}
+                loading={loading}
               />
-            ))}
-          </WhiteBlock>
 
-          <WhiteBlock title="2. Персональные данные">
-            <div className="grid grid-cols-2 gap-5">
-              <Input name="firstName" className="text-base" placeholder="Имя" />
-              <Input name="lastName" className="text-base" placeholder="Фамилия" />
-              <Input name="email" className="text-base" placeholder="E-mail" />
-              <Input name="phone" className="text-base" placeholder="Телефон" />
+              <CheckoutPersonalForm className={loading ? "opacity-40 pointer-events-none" : ""} />
+
+              <CheckoutAddressForm className={loading ? "opacity-40 pointer-events-none" : ""} />
             </div>
-          </WhiteBlock>
 
-          <WhiteBlock title="3. Адрес доставки">
-            <div className="flex flex-col gap-5">
-              <Input name="firstName" className="text-base" placeholder="Введите адрес..." />
-              <Textarea className="text-base" placeholder="Комментарий к заказу" rows={5} />
+            {/* Правая часть */}
+            <div className="w-[450px]">
+              <CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting} />
             </div>
-          </WhiteBlock>
-        </div>
-
-        {/* Правая часть */}
-        <div className="w-[450px]">
-          <CheckoutSidebar totalAmount={totalAmount} />
-        </div>
-      </div>
+          </div>
+        </form>
+      </FormProvider>
     </Container>
   );
 }
