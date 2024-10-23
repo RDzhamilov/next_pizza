@@ -8,10 +8,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = (await req.json()) as PaymentCallbackData;
+    const body = await req.json();
+
+    const orderId = Number(body.metadata.order_id);
 
     const order = await prisma.order.findFirst({
-      where: { id: Number(body.object.metadata.order_id) },
+      where: { id: orderId },
     });
 
     if (!order) {
@@ -27,13 +29,26 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const items = JSON.parse(order?.items as string) as CartItemDTO[];
+    const responseData = {
+      success: true,
+      message: "Order updated successfully.",
+      description: body.description,
+      metadata: {
+        order_id: order.id,
+      },
+      confirmation: {
+        return_url: process.env.YOOKASSA_CALLBACK_URL,
+      },
+    };
 
+    // const items = JSON.parse(order?.items as string) as CartItemDTO[];
     // await sendEmail(
     //   order.email,
     //   "Next Pizza | Ваш заказ успешно оформлен!",
     //   OrderSuccessTemplate({ orderId: order.id, items })
     // );
+
+    return NextResponse.json(responseData);
   } catch (error) {
     console.log("[CHECKOUT_CALLBACK] Error", error);
     return NextResponse.json({ error: "Server error" });
