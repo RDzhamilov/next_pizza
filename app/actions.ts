@@ -111,8 +111,6 @@ export async function createOrder(data: CheckoutFormValues) {
     //   })
     // );
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
     return paymentUrl;
   } catch (error) {
     console.log("[CreateOrder] Server error", error);

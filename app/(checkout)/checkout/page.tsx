@@ -42,9 +42,11 @@ export default function CheckoutPage() {
         icon: "✅",
       });
 
-      if (url) {
-        location.href = url;
-      }
+      setTimeout(() => {
+        if (url) {
+          location.href = url;
+        }
+      }, 3000);
     } catch (err) {
       console.log(err);
       setSubmitting(false);
