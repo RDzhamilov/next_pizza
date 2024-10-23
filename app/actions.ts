@@ -98,18 +98,20 @@ export async function createOrder(data: CheckoutFormValues) {
     });
 
     /* Отправляем письмо */
+    const paymentUrl = "http://localhost:3000/?paid";
     // const paymentUrl = paymentData.confirmation.confirmation_url;
-    const paymentUrl = "https://www.linkedin.com/in/rustam-dzhamilov/";
 
-    await sendEmail(
-      data.email,
-      "Next Pizza / Оплатите заказ #" + order.id,
-      PayOrderTemplate({
-        orderId: order.id,
-        totalAmount: order.totalAmount,
-        paymentUrl,
-      })
-    );
+    // await sendEmail(
+    //   data.email,
+    //   "Next Pizza / Оплатите заказ #" + order.id,
+    //   PayOrderTemplate({
+    //     orderId: order.id,
+    //     totalAmount: order.totalAmount,
+    //     paymentUrl,
+    //   })
+    // );
+
+    await new Promise((resolve) => setTimeout(resolve, 5000));
 
     return paymentUrl;
   } catch (error) {

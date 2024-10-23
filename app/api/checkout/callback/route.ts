@@ -29,11 +29,11 @@ export async function POST(req: NextRequest) {
 
     const items = JSON.parse(order?.items as string) as CartItemDTO[];
 
-    await sendEmail(
-      order.email,
-      "Next Pizza | Ваш заказ успешно оплачен!",
-      OrderSuccessTemplate({ orderId: order.id, items })
-    );
+    // await sendEmail(
+    //   order.email,
+    //   "Next Pizza | Ваш заказ успешно оформлен!",
+    //   OrderSuccessTemplate({ orderId: order.id, items })
+    // );
   } catch (error) {
     console.log("[CHECKOUT_CALLBACK] Error", error);
     return NextResponse.json({ error: "Server error" });
