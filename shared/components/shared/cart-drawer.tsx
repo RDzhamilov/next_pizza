@@ -53,7 +53,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                 Добавьте хотя бы один пиццу в корзину, чтобы совершить покупку
               </p>
 
-              <SheetClose>
+              <SheetClose asChild>
                 <Button className="w-56 h-12 text-base" size="lg">
                   <ArrowLeft className="w-5 mr-2" />
                   Вернуться назад

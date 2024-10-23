@@ -98,8 +98,8 @@ export async function createOrder(data: CheckoutFormValues) {
     });
 
     /* Отправляем письмо */
-    const paymentUrl = "http://localhost:3000/?paid";
-    // const paymentUrl = paymentData.confirmation.confirmation_url;
+    // const paymentUrl = "http://localhost:3000/?paid";
+    const paymentUrl = paymentData.confirmation.confirmation_url;
 
     // await sendEmail(
     //   data.email,
