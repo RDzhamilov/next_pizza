@@ -23,16 +23,6 @@ export async function createPayment(details: Props) {
 
   return data;
 }
-// const { data } = await axios.post<PaymentData>("http://localhost:3000/payments", {
-// description: details.description,
-// metadata: {
-//   order_id: details.orderId,
-// },
-// confirmation: {
-//   type: "redirect",
-//   return_url: process.env.YOOKASSA_CALLBACK_URL,
-// },
-// })
 
 // export async function createPayment(details: Props) {
 //
