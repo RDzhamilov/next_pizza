@@ -119,6 +119,7 @@ export async function createOrder(data: CheckoutFormValues) {
 
     /* Отправляем письмо */
     const paymentUrl = process.env.YOOKASSA_CALLBACK_URL || "http://localhost:3000/?paid";
+
     // const paymentUrl = paymentData.confirmation.confirmation_url;
 
     // await sendEmail(

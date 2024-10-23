@@ -43,8 +43,10 @@ export default function CheckoutPage() {
       });
 
       setTimeout(() => {
-        if (url) {
+        if (typeof url === "string") {
           location.href = url;
+        } else {
+          console.error("URL is not a valid string:", url);
         }
       }, 3000);
     } catch (err) {
