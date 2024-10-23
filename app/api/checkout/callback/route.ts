@@ -51,6 +51,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(responseData);
   } catch (error) {
     console.log("[CHECKOUT_CALLBACK] Error", error);
+
     return NextResponse.json({ error: "Server error" });
   }
 }
