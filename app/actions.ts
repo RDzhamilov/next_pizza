@@ -6,6 +6,7 @@ import { CheckoutFormValues } from "@/shared/constants";
 import { createPayment, sendEmail } from "@/shared/lib";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 export async function createOrder(data: CheckoutFormValues) {
   try {
@@ -78,28 +79,47 @@ export async function createOrder(data: CheckoutFormValues) {
     });
 
     /* Создаем платеж */
-    const paymentData = await createPayment({
-      amount: order.totalAmount,
-      orderId: order.id,
-      description: "Оплата заказа #" + order.id,
-    });
+    // const paymentData = await createPayment({
+    //   amount: order.totalAmount,
+    //   orderId: order.id,
+    //   description: "Оплата заказа #" + order.id,
+    // });
 
-    if (!paymentData) {
-      throw new Error("Payment data not found");
-    }
+    // if (!paymentData) {
+    //   throw new Error("Payment data not found");
+    // }
+
+    const paymentId = `PAYMENT_${order.id}`;
 
     await prisma.order.update({
       where: {
         id: order.id,
       },
       data: {
-        paymentId: paymentData.id,
+        paymentId: paymentId,
+      },
+    });
+
+    const orderBD = await prisma.order.findFirst({
+      where: { paymentId: paymentId },
+    });
+
+    if (!orderBD) {
+      return NextResponse.json({ error: "Order not found" });
+    }
+
+    await prisma.order.update({
+      where: {
+        id: orderBD.id,
+      },
+      data: {
+        status: OrderStatus.SUCCEEDED,
       },
     });
 
     /* Отправляем письмо */
-    // const paymentUrl = "http://localhost:3000/?paid";
-    const paymentUrl = paymentData.confirmation.confirmation_url;
+    const paymentUrl = process.env.YOOKASSA_CALLBACK_URL || "http://localhost:3000/?paid";
+    // const paymentUrl = paymentData.confirmation.confirmation_url;
 
     // await sendEmail(
     //   data.email,
