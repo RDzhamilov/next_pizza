@@ -18,7 +18,7 @@ model User {
   verified DateTime
 
   provider   String?
-  prociderId String?
+  providerId String?
 
   cart             Cart?
   orders           Order[]

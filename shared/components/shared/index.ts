@@ -21,6 +21,7 @@ export { CheckoutItemSkeleton } from "./checkout-item-skeleton";
 export { CheckoutSidebar } from "./checkout-sidebar";
 export { RequiredSymbol } from "./required-symbol";
 export { ClearButton } from "./clear-button";
+export { ProfileButton } from "./profile-button";
 export * from "./email-templates";
 export * from "./checkout";
 export * from "./form";
