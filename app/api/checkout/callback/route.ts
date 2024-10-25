@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
         order_id: order.id,
       },
       confirmation: {
-        return_url: process.env.YOOKASSA_CALLBACK_URL,
+        return_url: process.env.PAID_CALLBACK_URL,
       },
     };
 

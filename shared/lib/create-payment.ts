@@ -17,7 +17,7 @@ export async function createPayment(details: Props) {
       order_id: details.orderId,
     },
     confirmation: {
-      return_url: process.env.YOOKASSA_CALLBACK_URL,
+      return_url: process.env.PAID_CALLBACK_URL,
     },
   });
 
