@@ -26,6 +26,7 @@ export const authOptions: AuthOptions = {
         };
       },
     }),
+
     CredentialsProvider({
       name: "Credentials",
       credentials: {
