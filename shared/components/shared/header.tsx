@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/shared/lib/utils";
-import React from "react";
+import React, { Suspense } from "react";
 import { Container } from "./container";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,9 +61,11 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         </Link>
 
         {hasSearch && (
-          <div className="mx-10 flex-1">
-            <SearchInput />
-          </div>
+          <Suspense>
+            <div className="mx-10 flex-1">
+              <SearchInput />
+            </div>
+          </Suspense>
         )}
 
         {/* Правая часть */}

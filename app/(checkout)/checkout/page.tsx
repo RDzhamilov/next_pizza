@@ -14,7 +14,7 @@ import {
 import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
-import React from "react";
+import React, { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { Api } from "@/shared/services/api-client";
 
@@ -37,19 +37,18 @@ export default function CheckoutPage() {
 
   React.useEffect(() => {
     async function fetchUserInfo() {
-      const data = await Api.auth.getMe()
-      const [firsName, lastName] = data.fullName.split(' ')
+      const data = await Api.auth.getMe();
+      const [firsName, lastName] = data.fullName.split(" ");
 
-      form.setValue('firstName', firsName)
-      form.setValue('lastName', lastName)
-      form.setValue('email', data.email)
+      form.setValue("firstName", firsName);
+      form.setValue("lastName", lastName);
+      form.setValue("email", data.email);
     }
 
-
-    if ( session) {
-      fetchUserInfo()
+    if (session) {
+      fetchUserInfo();
     }
-  }, [session])
+  }, [session]);
 
   const onSubmit = async (data: CheckoutFormValues) => {
     try {
@@ -91,16 +90,22 @@ export default function CheckoutPage() {
           <div className="flex gap-10">
             {/* Левая часть */}
             <div className="flex flex-col gap-10 flex-1 mb-20">
-              <CheckoutCart
-                onClickCountButton={onClickCountButton}
-                removeCartItem={removeCartItem}
-                items={items}
-                loading={loading}
-              />
+              <Suspense>
+                <CheckoutCart
+                  onClickCountButton={onClickCountButton}
+                  removeCartItem={removeCartItem}
+                  items={items}
+                  loading={loading}
+                />
+              </Suspense>
 
-              <CheckoutPersonalForm className={loading ? "opacity-40 pointer-events-none" : ""} />
+              <Suspense>
+                <CheckoutPersonalForm className={loading ? "opacity-40 pointer-events-none" : ""} />
+              </Suspense>
 
-              <CheckoutAddressForm className={loading ? "opacity-40 pointer-events-none" : ""} />
+              <Suspense>
+                <CheckoutAddressForm className={loading ? "opacity-40 pointer-events-none" : ""} />
+              </Suspense>
             </div>
 
             {/* Правая часть */}
