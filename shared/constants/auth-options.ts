@@ -146,6 +146,7 @@ export const authOptions: AuthOptions = {
 
       return token;
     },
+    
     session({ session, token }) {
       if (session?.user) {
         session.user.id = token.id;
