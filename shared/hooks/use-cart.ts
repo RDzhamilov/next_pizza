@@ -14,10 +14,12 @@ type ReturnProps = {
 
 export const useCart = (): ReturnProps => {
   const cartState = useCartStore((state) => state);
+  const fetchCartItems = cartState.fetchCartItems;
 
   React.useEffect(() => {
-    cartState.fetchCartItems();
-  }, []);
+    // cartState.fetchCartItems();
+    fetchCartItems();
+  }, [fetchCartItems]);
 
   return cartState;
 };

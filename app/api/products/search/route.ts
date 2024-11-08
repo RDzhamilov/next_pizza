@@ -1,6 +1,8 @@
 import { prisma } from "@/prisma/prisma-client";
 import { NextRequest, NextResponse } from "next/server";
 
+//TODO: Первая версия поиска чувствительная к регистру
+
 // export async function GET(req: NextRequest) {
 //   const query = req.nextUrl.searchParams.get("query") || "";
 

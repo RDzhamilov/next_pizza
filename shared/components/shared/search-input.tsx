@@ -35,18 +35,6 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
     [searchQuery]
   );
 
-  // React.useEffect(() => {
-  //   async () => {
-  //     try {
-  //       Api.products.search(searchQuery).then((items) => {
-  //         setProducts(items);
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  // }, [searchQuery]);
-
   const onClickItem = () => {
     setFocused(false);
     setSearchQuery("");

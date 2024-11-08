@@ -1,18 +1,12 @@
 "use server";
 
 import { prisma } from "@/prisma/prisma-client";
-import { PayOrderTemplate } from "@/shared/components";
-import { VerificationUserTemplate } from "@/shared/components/shared/email-templates/verification-user";
 import { CheckoutFormValues } from "@/shared/constants";
-import { createPayment, sendEmail } from "@/shared/lib";
 import { getUserSession } from "@/shared/lib/get-user-session";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { hashSync } from "bcrypt";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-
-import { redirect } from "next/navigation";
-import { set } from "react-hook-form";
 
 export async function createOrder(data: CheckoutFormValues) {
   try {
@@ -84,17 +78,6 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
-    /* Создаем платеж */
-    // const paymentData = await createPayment({
-    //   amount: order.totalAmount,
-    //   orderId: order.id,
-    //   description: "Оплата заказа #" + order.id,
-    // });
-
-    // if (!paymentData) {
-    //   throw new Error("Payment data not found");
-    // }
-
     const paymentId = `PAYMENT_${order.id}`;
 
     await prisma.order.update({
@@ -123,20 +106,7 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
-    /* Отправляем письмо */
     const paymentUrl = process.env.PAID_CALLBACK_URL || "http://localhost:3000/?paid";
-
-    // const paymentUrl = paymentData.confirmation.confirmation_url;
-
-    // await sendEmail(
-    //   data.email,
-    //   "Next Pizza / Оплатите заказ #" + order.id,
-    //   PayOrderTemplate({
-    //     orderId: order.id,
-    //     totalAmount: order.totalAmount,
-    //     paymentUrl,
-    //   })
-    // );
 
     return paymentUrl;
   } catch (error) {
@@ -205,18 +175,6 @@ export async function registerUser(body: Prisma.UserCreateInput) {
         userId: createUser.id,
       },
     });
-
-    // await sendEmail(
-    //   createUser.email,
-    //   "Next Pizza | Подтверждение регистрации",
-    //   VerificationUserTemplate({
-    //     code,
-    //   })
-    // );
-
-    // redirect(`http://localhost:3000/api/auth/verify?code=${code}`);
-
-    // const code = req.nextUrl.searchParams.get("code");
 
     if (!code) {
       return NextResponse.json({ error: "Неверный код" }, { status: 400 });

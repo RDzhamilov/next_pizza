@@ -2,7 +2,6 @@
 
 import React from "react";
 import { WhiteBlock } from "../white-block";
-import { Input } from "../../ui";
 import { FormTextarea } from "../form";
 import { AddressInput } from "../address-input";
 import { Controller, useFormContext } from "react-hook-form";
@@ -18,7 +17,6 @@ export const CheckoutAddressForm = ({ className }: Props) => {
   return (
     <WhiteBlock title="3. Адрес доставки" className={className}>
       <div className="flex flex-col gap-5">
-        {/* <Input name="firstName" className="text-base" placeholder="Введите адрес..." /> */}
 
         <Controller
           control={control}
