@@ -7,9 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Title } from "../../../title";
 import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
-import toast from "react-hot-toast";
 import { signIn } from "next-auth/react";
-import { ERROR_ICON, SUCCESS_ICON } from "@/shared/constants";
+import { ErrorCustomToast, SuccessCustomToast } from "@/shared/services/toastService";
 
 interface Props {
   onClose?: VoidFunction;
@@ -35,16 +34,12 @@ export const LoginForm: React.FC<Props> = ({ onClose }) => {
         throw Error();
       }
 
-      toast.success("Вы вошли в аккаунт", {
-        icon: SUCCESS_ICON,
-      });
+      SuccessCustomToast({ message: "Вы вошли в аккаунт", withIcon: true });
 
       onClose?.();
     } catch (error) {
       console.error("Error [LOGIN]", error);
-      toast.error("Не удалось войти в аккаунт", {
-        icon: ERROR_ICON,
-      });
+      ErrorCustomToast({ message: "Не удалось войти в аккаунт", withIcon: true });
     }
   };
 

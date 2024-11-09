@@ -3,12 +3,11 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import toast from "react-hot-toast";
 import { registerUser } from "@/app/actions";
 import { TFormRegisterValue, formRegisterSchema } from "./schemas";
 import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
-import { ERROR_ICON, SUCCESS_ICON } from "@/shared/constants";
+import { ErrorCustomToast, SuccessCustomToast } from "@/shared/services/toastService";
 
 interface Props {
   onClose?: VoidFunction;
@@ -34,9 +33,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
         password: data.password,
       });
 
-      toast.success("Регистрация успешна 📝. Подтвердите свою почту", {
-        icon: SUCCESS_ICON,
-      });
+      SuccessCustomToast({ message: "Регистрация успешна 📝. Подтвердите свою почту", withIcon: true });
 
       setTimeout(() => {
         onClose?.();
@@ -50,9 +47,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
         }
       }, 3000);
     } catch (error) {
-      return toast.error("Неверный E-Mail или пароль", {
-        icon: ERROR_ICON,
-      });
+      return ErrorCustomToast({ message: "Неверный E-Mail или пароль", withIcon: true });
     }
   };
 

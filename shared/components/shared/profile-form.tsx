@@ -5,14 +5,13 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { formRegisterSchema, TFormRegisterValue } from "./modals/auth-modal/forms/schemas";
 import { User } from ".prisma/client";
-import toast from "react-hot-toast";
 import { signOut } from "next-auth/react";
 import { Container } from "./container";
 import { Title } from "./title";
 import { FormInput } from "./form";
 import { Button } from "../ui";
 import { updateUserInfo } from "@/app/actions";
-import { ERROR_ICON, SUCCESS_ICON } from "@/shared/constants";
+import { ErrorCustomToast, SuccessCustomToast } from "@/shared/services/toastService";
 
 interface Props {
   data: User;
@@ -37,13 +36,9 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
         password: data.password,
       });
 
-      toast.success("Данные обновлены 📝", {
-        icon: SUCCESS_ICON,
-      });
+      SuccessCustomToast({ message: "Данные обновлены 📝", withIcon: true });
     } catch (error) {
-      return toast.error("Не удалось обновить данные", {
-        icon: ERROR_ICON,
-      });
+      return ErrorCustomToast({ message: "Не удалось обновить данные", withIcon: true });
     }
   };
 

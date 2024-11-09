@@ -3,9 +3,9 @@
 import { ProductWithRelations } from "@/@types/prisma";
 import { useCartStore } from "@/shared/store";
 import React from "react";
-import toast from "react-hot-toast";
 import { ChoosePizzaForm } from "./choose-pizza-form";
 import { ChooseProductForm } from "./choose-product-form";
+import { ErrorCustomToast, SuccessCustomToast } from "@/shared/services/toastService";
 
 interface Props {
   product: ProductWithRelations;
@@ -27,11 +27,11 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
         ingredients,
       });
 
-      toast.success(product.name + " добавлена в корзину");
+      SuccessCustomToast({ message: product.name + " добавлена в корзину" });
 
       _onSubmit?.();
     } catch (error) {
-      toast.error("Не удалось добавить товар в корзину");
+      ErrorCustomToast({ message: "Не удалось добавить товар в корзину" });
       console.error(error);
     }
   };

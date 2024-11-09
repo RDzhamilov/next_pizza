@@ -8,9 +8,9 @@ import Link from "next/link";
 import { SearchInput } from "./search-input";
 import { CartButton } from "./cart-button";
 import { useRouter, useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
 import { ProfileButton } from "./profile-button";
 import { AuthModal } from "./modals";
+import { SuccessCustomToast } from "@/shared/services/toastService";
 
 interface Props {
   hasSearch?: boolean;
@@ -39,9 +39,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
     if (toastMessage) {
       setTimeout(() => {
         router.replace("/");
-        toast.success(toastMessage, {
-          duration: 3000,
-        });
+        SuccessCustomToast({ message: toastMessage, duration: 3000 });
       }, 1000);
     }
   }, [router, searchParams]);

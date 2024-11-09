@@ -11,17 +11,12 @@ import {
   CheckoutCart,
   CheckoutPersonalForm,
 } from "@/shared/components";
-import {
-  checkoutFormSchema,
-  CheckoutFormValues,
-  ERROR_ICON,
-  SUCCESS_ICON,
-} from "@/shared/constants";
+import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
 import { createOrder } from "@/app/actions";
-import toast from "react-hot-toast";
 import React, { Suspense } from "react";
 import { useSession } from "next-auth/react";
 import { Api } from "@/shared/services/api-client";
+import { ErrorCustomToast, SuccessCustomToast } from "@/shared/services/toastService";
 
 export default function CheckoutPage() {
   const [submitting, setSubmitting] = React.useState(false);
@@ -61,9 +56,9 @@ export default function CheckoutPage() {
 
       const url = await createOrder(data);
 
-      // todo Создать отдельный модуль в котором будут 2 вида тоастов - success и error
-      toast.success("Заказ успешно оформлен! 📝 Переход на оплату...", {
-        icon: SUCCESS_ICON,
+      SuccessCustomToast({
+        message: "Заказ успешно оформлен! 📝 Переход на оплату...",
+        withIcon: true,
       });
 
       setTimeout(() => {
@@ -76,8 +71,10 @@ export default function CheckoutPage() {
     } catch (err) {
       console.log(err);
       setSubmitting(false);
-      toast.error("Не удалось создать заказ", {
-        icon: ERROR_ICON,
+
+      ErrorCustomToast({
+        message: "Не удалось создать заказ",
+        withIcon: true,
       });
     }
   };
