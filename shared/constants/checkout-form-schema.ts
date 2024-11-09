@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const checkoutFormSchema = z.object({
-  firstName: z.string().min(2, { message: "Имя должно содержать не менее 2-x символов" }),
-  lastName: z.string().min(2, { message: "Фамилия должна содержать не менее 2-x символов" }),
-  email: z.string().email({ message: "Введите корректную почту" }),
-  phone: z.string().min(10, { message: "Введите корректный номер телефона" }),
-  address: z.string().min(5, { message: "Введите корректный адрес" }),
+  firstName: z.string().min(2, { message: "The name must be at least 2 characters long" }),
+  lastName: z.string().min(2, { message: "The last name must be at least 2 characters long" }),
+  email: z.string().email({ message: "Enter a valid email" }),
+  phone: z.string().min(10, { message: "Enter a valid phone number" }),
+  address: z.string().min(5, { message: "Enter a valid address" }),
   comment: z.string().optional(),
 });
 

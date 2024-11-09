@@ -33,7 +33,10 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
         password: data.password,
       });
 
-      SuccessCustomToast({ message: "Регистрация успешна 📝. Подтвердите свою почту", withIcon: true });
+      SuccessCustomToast({
+        message: "Registration successful 📝. Please confirm your email",
+        withIcon: true,
+      });
 
       setTimeout(() => {
         onClose?.();
@@ -47,7 +50,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
         }
       }, 3000);
     } catch (error) {
-      return ErrorCustomToast({ message: "Неверный E-Mail или пароль", withIcon: true });
+      return ErrorCustomToast({ message: "Incorrect E-Mail or password", withIcon: true });
     }
   };
 
@@ -55,12 +58,12 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
     <FormProvider {...form}>
       <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
         <FormInput name="email" label="E-Mail" required />
-        <FormInput name="fullName" label="Полное имя" required />
-        <FormInput name="password" label="Пароль" type="password" required />
-        <FormInput name="confirmPassword" label="Подтвердите пароль" type="password" required />
+        <FormInput name="fullName" label="Full name" required />
+        <FormInput name="password" label="Password" type="password" required />
+        <FormInput name="confirmPassword" label="Confirm password" type="password" required />
 
         <Button loading={form.formState.isSubmitting} className="h-12 text-base" type="submit">
-          Зарегистрироваться
+          Sign up
         </Button>
       </form>
     </FormProvider>

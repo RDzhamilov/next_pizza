@@ -29,39 +29,39 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Title text="Фильтрация" size="sm" className="mb-5 font-bold" />
+      <Title text="Filtering" size="sm" className="mb-5 font-bold" />
 
       {/* Верхние чекбоксы */}
       <CheckboxFiltersGroup
-        title="Тип теста"
+        title="Dough type"
         name="pizzaTypes"
         className="mb-5"
         loading={loading}
         onClickCheckbox={filters.setPizzaTypes}
         selected={filters.pizzaTypes}
         items={[
-          { text: "Тонкое", value: "1" },
-          { text: "Традиционное", value: "2" },
+          { text: "Thin", value: "1" },
+          { text: "Traditional", value: "2" },
         ]}
       />
 
       <CheckboxFiltersGroup
-        title="Размеры"
+        title="Sizes"
         name="sizes"
         className="mb-5"
         loading={loading}
         onClickCheckbox={filters.setSizes}
         selected={filters.sizes}
         items={[
-          { text: "20 см", value: "20" },
-          { text: "30 см", value: "30" },
-          { text: "40 см", value: "40" },
+          { text: "20 cm", value: "20" },
+          { text: "30 cm", value: "30" },
+          { text: "40 cm", value: "40" },
         ]}
       />
 
       {/* Фильтр цен */}
       <div className="mt-5 border-y border-y-neutral-100 py-6 pb-7">
-        <p className="font-bold mb-3">Цена от и до:</p>
+        <p className="font-bold mb-3">Price from and to:</p>
         <div className=" flex gap-3 mb-5">
           <Input
             type="number"
@@ -90,7 +90,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
       </div>
 
       <CheckboxFiltersGroup
-        title="Ингредиенты"
+        title="Ingredients"
         name="ingredients"
         className="mt-5"
         limit={6}

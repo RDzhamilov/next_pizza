@@ -17,7 +17,6 @@ export interface CartState {
   updateItemQuantity: (id: number, quantity: number) => Promise<void>;
 
   /** Запрос на добавление в корзину **/
-  // TODO: Типизировать values
   addCartItem: (values: any) => Promise<void>;
 
   /** Запрос на удаление из корзины **/

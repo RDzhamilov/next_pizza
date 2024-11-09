@@ -35,14 +35,29 @@ export default function CheckoutPage() {
     },
   });
 
+  //TODO я добавил проверку на сессию и получение информации о пользователе - ошибка не прошла
   React.useEffect(() => {
     async function fetchUserInfo() {
-      const data = await Api.auth.getMe();
-      const [firsName, lastName] = data.fullName.split(" ");
+      try {
+        if (!session) {
+          console.log("Сессия не существует");
+          return;
+        }
 
-      form.setValue("firstName", firsName);
-      form.setValue("lastName", lastName);
-      form.setValue("email", data.email);
+        const data = await Api.auth.getMe();
+
+        if (!data?.email || !data?.fullName) {
+          return;
+        }
+
+        const [firstName, lastName] = data.fullName.split(" ");
+
+        form.setValue("firstName", firstName || "");
+        form.setValue("lastName", lastName || "");
+        form.setValue("email", data.email || "");
+      } catch (error) {
+        console.error("Ошибка при получении информации о пользователе:", error);
+      }
     }
 
     if (session) {
@@ -57,7 +72,7 @@ export default function CheckoutPage() {
       const url = await createOrder(data);
 
       SuccessCustomToast({
-        message: "Заказ успешно оформлен! 📝 Переход на оплату...",
+        message: "Order successfully placed! 📝 Proceeding to payment...",
         withIcon: true,
       });
 
@@ -73,7 +88,7 @@ export default function CheckoutPage() {
       setSubmitting(false);
 
       ErrorCustomToast({
-        message: "Не удалось создать заказ",
+        message: "Failed to create the order",
         withIcon: true,
       });
     }
@@ -86,7 +101,7 @@ export default function CheckoutPage() {
 
   return (
     <Container className="mt-10">
-      <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
+      <Title text="Order checkout" className="font-extrabold mb-8 text-[36px]" />
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

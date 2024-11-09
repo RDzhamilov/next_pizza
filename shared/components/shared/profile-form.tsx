@@ -36,9 +36,9 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
         password: data.password,
       });
 
-      SuccessCustomToast({ message: "Данные обновлены 📝", withIcon: true });
+      SuccessCustomToast({ message: "Data updated 📝", withIcon: true });
     } catch (error) {
-      return ErrorCustomToast({ message: "Не удалось обновить данные", withIcon: true });
+      return ErrorCustomToast({ message: "Failed to update data", withIcon: true });
     }
   };
 
@@ -50,18 +50,18 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
 
   return (
     <Container className="my-10">
-      <Title text={`Личные данные | ${data.fullName}`} size="md" className="font-bold" />
+      <Title text={`Personal information | ${data.fullName}`} size="md" className="font-bold" />
 
       <FormProvider {...form}>
         <form className="flex flex-col gap-5 w-96 mt-10" onSubmit={form.handleSubmit(onSubmit)}>
           <FormInput name="email" label="E-Mail" required />
-          <FormInput name="fullName" label="Полное имя" required />
+          <FormInput name="fullName" label="Full name" required />
 
-          <FormInput type="password" name="password" label="Новый пароль" required />
-          <FormInput type="password" name="confirmPassword" label="Повторите пароль" required />
+          <FormInput type="password" name="password" label="New password" required />
+          <FormInput type="password" name="confirmPassword" label="Confirm password" required />
 
           <Button disabled={form.formState.isSubmitting} className="text-base mt-10" type="submit">
-            Сохранить
+            Save
           </Button>
 
           <Button
@@ -71,7 +71,7 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
             className="text-base"
             type="button"
           >
-            Выйти
+            Log out
           </Button>
         </form>
       </FormProvider>

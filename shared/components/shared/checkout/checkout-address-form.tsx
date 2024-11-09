@@ -15,9 +15,8 @@ export const CheckoutAddressForm = ({ className }: Props) => {
   const { control } = useFormContext();
 
   return (
-    <WhiteBlock title="3. Адрес доставки" className={className}>
+    <WhiteBlock title="3. Delivery address" className={className}>
       <div className="flex flex-col gap-5">
-
         <Controller
           control={control}
           name="address"
@@ -29,12 +28,7 @@ export const CheckoutAddressForm = ({ className }: Props) => {
           )}
         />
 
-        <FormTextarea
-          name="comment"
-          className="text-base"
-          placeholder="Комментарий к заказу"
-          rows={5}
-        />
+        <FormTextarea name="comment" className="text-base" placeholder="Order comments" rows={5} />
       </div>
     </WhiteBlock>
   );

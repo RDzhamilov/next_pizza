@@ -21,7 +21,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
   return (
     <WhiteBlock className={cn("p-6 sticky top-4", className)}>
       <div className="flex flex-col gap-1">
-        <span className="text-xl">Итого</span>
+        <span className="text-xl">Total</span>
         {loading ? (
           <Skeleton className="h-11 w-48" />
         ) : (
@@ -33,7 +33,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         title={
           <div className="flex items-center">
             <Package size={20} className="mr-2 text-gray-400" />
-            Стоимость корзины:
+            Cart total:
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${totalAmount} $`}
@@ -42,7 +42,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         title={
           <div className="flex items-center">
             <Percent size={20} className="mr-2 text-gray-400" />
-            Налоги:
+            Taxes:
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${vatPrice} $`}
@@ -51,7 +51,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         title={
           <div className="flex items-center">
             <Truck size={20} className="mr-2 text-gray-400" />
-            Доставка:
+            Delivery:
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${DELIVERY_PRICE} $`}
@@ -62,7 +62,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         type="submit"
         className="w-full h-14 rounded-2xl mt-6 text-base font-bold"
       >
-        Перейти к оплате
+        Proceed to payment
         <ArrowRight className="w-5 ml-2" />
       </Button>
     </WhiteBlock>

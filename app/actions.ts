@@ -119,7 +119,7 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
     const currentUser = await getUserSession();
 
     if (!currentUser) {
-      throw new Error("Пользователь не найден");
+      throw new Error("User not found");
     }
 
     const findUser = await prisma.user.findFirst({
@@ -154,9 +154,9 @@ export async function registerUser(body: Prisma.UserCreateInput) {
 
     if (user) {
       if (!user.verified) {
-        throw new Error("Почта не подтверждена");
+        throw new Error("Email not confirmed");
       }
-      throw new Error("Пользователь уже существует");
+      throw new Error("User already exists");
     }
 
     const createUser = await prisma.user.create({
@@ -177,7 +177,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     });
 
     if (!code) {
-      return NextResponse.json({ error: "Неверный код" }, { status: 400 });
+      return NextResponse.json({ error: "Incorrect code" }, { status: 400 });
     }
 
     const verificationCode = await prisma.verificationCode.findFirst({
@@ -187,7 +187,7 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     });
 
     if (!verificationCode) {
-      return NextResponse.json({ error: "Неверный код" }, { status: 400 });
+      return NextResponse.json({ error: "Invalid code" }, { status: 400 });
     }
 
     await prisma.user.update({

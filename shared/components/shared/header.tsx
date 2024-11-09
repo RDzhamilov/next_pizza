@@ -29,11 +29,11 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
     let toastMessage = "";
 
     if (searchParams.has("paid")) {
-      toastMessage = "Заказ успешно оплачен! Информация отправлена на почту.";
+      toastMessage = "Order successfully paid! Information has been sent to your email.";
     }
 
     if (searchParams.has("verified")) {
-      toastMessage = "Почта успешно подтверждена!";
+      toastMessage = "Email successfully confirmed!";
     }
 
     if (toastMessage) {
@@ -53,7 +53,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
             <Image src="/logo.png" alt="Logo" width={35} height={35} />
             <div>
               <h1 className="text-2xl uppercase font-black">Next Pizza</h1>
-              <p className="text-sm text-gray-400 leading-3">вкуснее уже некуда</p>
+              <p className="text-sm text-gray-400 leading-3">This is the best taste!</p>
             </div>
           </div>
         </Link>
