@@ -11,7 +11,12 @@ import {
   CheckoutCart,
   CheckoutPersonalForm,
 } from "@/shared/components";
-import { checkoutFormSchema, CheckoutFormValues } from "@/shared/constants";
+import {
+  checkoutFormSchema,
+  CheckoutFormValues,
+  ERROR_ICON,
+  SUCCESS_ICON,
+} from "@/shared/constants";
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
 import React, { Suspense } from "react";
@@ -58,8 +63,7 @@ export default function CheckoutPage() {
 
       // todo Создать отдельный модуль в котором будут 2 вида тоастов - success и error
       toast.error("Заказ успешно оформлен! 📝 Переход на оплату...", {
-        // todo Закинути іконки в константи
-        icon: "✅",
+        icon: SUCCESS_ICON,
       });
 
       setTimeout(() => {
@@ -73,7 +77,7 @@ export default function CheckoutPage() {
       console.log(err);
       setSubmitting(false);
       toast.error("Не удалось создать заказ", {
-        icon: "❌",
+        icon: ERROR_ICON,
       });
     }
   };

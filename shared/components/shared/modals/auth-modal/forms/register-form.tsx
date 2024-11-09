@@ -8,6 +8,7 @@ import { registerUser } from "@/app/actions";
 import { TFormRegisterValue, formRegisterSchema } from "./schemas";
 import { FormInput } from "../../../form";
 import { Button } from "@/shared/components/ui";
+import { ERROR_ICON, SUCCESS_ICON } from "@/shared/constants";
 
 interface Props {
   onClose?: VoidFunction;
@@ -34,7 +35,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
       });
 
       toast.error("Регистрация успешна 📝. Подтвердите свою почту", {
-        icon: "✅",
+        icon: SUCCESS_ICON,
       });
 
       setTimeout(() => {
@@ -50,7 +51,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
       }, 3000);
     } catch (error) {
       return toast.error("Неверный E-Mail или пароль", {
-        icon: "❌",
+        icon: ERROR_ICON,
       });
     }
   };

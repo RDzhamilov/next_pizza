@@ -12,6 +12,7 @@ import { Title } from "./title";
 import { FormInput } from "./form";
 import { Button } from "../ui";
 import { updateUserInfo } from "@/app/actions";
+import { ERROR_ICON, SUCCESS_ICON } from "@/shared/constants";
 
 interface Props {
   data: User;
@@ -37,11 +38,11 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
       });
 
       toast.error("Данные обновлены 📝", {
-        icon: "✅",
+        icon: SUCCESS_ICON,
       });
     } catch (error) {
       return toast.error("Не удалось обновить данные", {
-        icon: "❌",
+        icon: ERROR_ICON,
       });
     }
   };
