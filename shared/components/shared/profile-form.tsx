@@ -37,7 +37,7 @@ export const ProfileForm: React.FC<Props> = ({ data }) => {
         password: data.password,
       });
 
-      toast.error("Данные обновлены 📝", {
+      toast.success("Данные обновлены 📝", {
         icon: SUCCESS_ICON,
       });
     } catch (error) {

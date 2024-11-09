@@ -34,7 +34,7 @@ export const RegisterForm: React.FC<Props> = ({ onClose }) => {
         password: data.password,
       });
 
-      toast.error("Регистрация успешна 📝. Подтвердите свою почту", {
+      toast.success("Регистрация успешна 📝. Подтвердите свою почту", {
         icon: SUCCESS_ICON,
       });
 
