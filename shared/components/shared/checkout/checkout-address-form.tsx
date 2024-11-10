@@ -22,6 +22,7 @@ export const CheckoutAddressForm = ({ className }: Props) => {
           name="address"
           render={({ field, fieldState }) => (
             <>
+             {/* TODO где-то тут ошибки */}
               <AddressInput onChange={field.onChange} />
               {fieldState.error?.message && <ErrorText text={fieldState.error.message} />}
             </>

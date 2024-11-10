@@ -4,6 +4,10 @@ import React from "react";
 import { AddressSuggestions } from "react-dadata";
 import "react-dadata/dist/react-dadata.css";
 
+{
+  /* TODO где-то тут ошибки */
+}
+
 interface Props {
   onChange?: (value?: string) => void;
 }
